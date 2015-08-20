@@ -5,12 +5,12 @@ rm -rf tmp/redis
 mkdir tmp
 set -e
 
-version=${REDIS_BRANCH:-2.6}
+version=${REDIS_BRANCH:-3.0.3}
 binaries="../../versions/$version/bin"
 
 pushd tmp
 
-git clone https://github.com/antirez/redis -b $version
+git clone -b $version --single-branch --depth 1 https://github.com/antirez/redis.git
 
 cd redis
 make
