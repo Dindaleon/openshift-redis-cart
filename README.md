@@ -1,4 +1,4 @@
-OpenShift Redis Cartridge
+OpenShift Redis Cartridge (REDIS v3.0.3)
 =========================
 
 Runs [Redis](http://redis.io) on [OpenShift](https://openshift.redhat.com/app/login) using downloadable cartridge support.  To install to OpenShift from the CLI (you'll need version 1.9 or later of rhc), create your app and then run:
