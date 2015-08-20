@@ -61,7 +61,9 @@ function update() {
 }
 
 function start() {
+    echo linea 64
     if ! [ -f $pid ]; then
+    echo linea 66
         echo $REDIS_CLI > env/REDIS_CLI
         erb conf/redis.conf.erb | redis-server -
 
