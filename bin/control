@@ -66,6 +66,7 @@ function start() {
         echo $REDIS_CLI > env/REDIS_CLI
         
         erb conf/redis.conf.erb | redis-server -
+        
         ret=$?
         
         if [ $ret -ne 0 ]; then
