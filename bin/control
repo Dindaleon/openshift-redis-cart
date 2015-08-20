@@ -62,12 +62,10 @@ function update() {
 
 function start() {
     if ! [ -f $pid ]; then
-    
         echo $REDIS_CLI > env/REDIS_CLI
+        erb conf/redis.conf.erb | redis-server -
         
-        erb conf/redis.conf.erb 
         ret=$?
-        
         if [ $ret -ne 0 ]; then
             echo "Redis failed to start - $ret" 1>&2
             return $ret
