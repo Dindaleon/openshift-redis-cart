@@ -60,6 +60,30 @@ function update() {
     ./.openshift/action_hooks/build
 }
 
+function start() {
+    if ! [ -f $pid ]; then
+        echo $REDIS_CLI > env/REDIS_CLI
+        erb conf/redis.conf.erb | redis-server -
+
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            echo "Redis failed to start - $ret" 1>&2
+            return $ret
+        fi
+    fi
+
+    if [ "$REDIS_SENTINEL" == "1" ]; then
+        if ! [ -f $sentinel_pid ]; then
+            echo $REDIS_SENTINEL_CLI > env/REDIS_SENTINEL_CLI
+            erb conf/redis-sentinel.conf.erb | redis-server - --sentinel
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                echo "Redis Sentinel failed to start - $ret" 1>&2
+                return $ret
+            fi
+        fi
+    fi
+}
 
 function stop() {
     m=0
